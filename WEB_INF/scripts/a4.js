@@ -1,4 +1,12 @@
-// http://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_accordion_symbol -->
+/*
+  Name: Michael Overy
+  Email: michael_overy@student.uml.edu
+  Affiliation: Senior Undergraduate
+  Creation Date: 29 September 2016
+  Description: Refactor the previous webpage created in assignment 2. Use
+               external CSS to style the page. Ensure that the page passes W3C
+               standards.
+*/
 
 var acc = document.getElementsByClassName("accordion");
 var i;

@@ -1,3 +1,13 @@
+<!--
+  Name: Michael Overy
+  Email: michael_overy@student.uml.edu
+  Affiliation: Senior Undergraduate
+  Creation Date: 29 September 2016
+  Description: Refactor the previous webpage created in assignment 2. Use
+               external CSS to style the page. Ensure that the page passes W3C
+               standards.
+-->
+
 body {
   margin: 0px;
   font-family: Arial, Helvetica, sans-serif;
@@ -6,7 +16,7 @@ body {
 
 /* Top Bar */
 header {
-  background-color: #4842f4;
+  background-color: #0169B2;
   overflow: hidden;
 }
 
@@ -86,4 +96,8 @@ div.panel.show {
 
 #ULowell {
   width: 300px;
+}
+
+footer {
+  text-align: center;
 }
