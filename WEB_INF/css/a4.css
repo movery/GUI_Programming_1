@@ -1,4 +1,4 @@
-<!--
+/*
   Name: Michael Overy
   Email: michael_overy@student.uml.edu
   Affiliation: Senior Undergraduate
@@ -6,7 +6,7 @@
   Description: Refactor the previous webpage created in assignment 2. Use
                external CSS to style the page. Ensure that the page passes W3C
                standards.
--->
+*/
 
 body {
   margin: 0px;
