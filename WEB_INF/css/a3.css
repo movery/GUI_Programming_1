@@ -2,7 +2,7 @@ header, hgroup, nav, footer, figure, figcaption, aside, section, article {
 	display: block;
 }
 body {
-	background-image: url("../ptrbackground.jpg");
+	background-image: url("WEB_INF/img/ptrbackground.jpg");
 	background-repeat: repeat-x;
 	background-color: #00569f;
 	color: #666666;
@@ -17,7 +17,7 @@ body {
 }
 
 header {
-	background-image: url("../sunset.jpg");
+	background-image: url("WEB_INF/img/sunset.jpg");
 	background-repeat: no-repeat;
 	background-position: right;
 	background-color: #000033;
@@ -72,7 +72,7 @@ img {
 }
 
 #content ul {
-	list-style-image: url("../marker.gif");
+	list-style-image: url("WEB_INF/img/marker.gif");
 	list-style-position: inside;
 }
 
