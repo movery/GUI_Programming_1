@@ -67,6 +67,7 @@ button.accordion.active, button.accordion:hover {
 div.panel {
     padding-left: 18px;
     padding-bottom: 18px;
+    padding-right: 6px;
     background-color: white;
     display: none;
 }
@@ -100,4 +101,5 @@ div.panel.show {
 
 footer {
   text-align: center;
+  font-style: italic;
 }
