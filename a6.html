@@ -1,0 +1,63 @@
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Michael Overy</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" href="WEB_INF/css/a6.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create a Multiplication Table!</h1>
+      
+      <form class="form-horizontal" id="tableForm">
+
+	<div class="form-group">
+	  <label class="col-sm-3 control-label">Multiplier Start</label>
+	  <div class="col-sm-4">
+	    <input class="form-control" id="plierStart">
+	  </div>
+	  <label class="col-sm-5 control-label label-error" id="plierStartError"></label>
+	</div>
+	
+	<div class="form-group">
+	  <label class="col-sm-3 control-label">Multiplier End</label>
+	  <div class="col-sm-4">
+	    <input class="form-control" id="plierEnd">
+	  </div>
+	  <label class="col-sm-5 control-label label-error" id="plierEndError"></label>
+	</div>
+
+	<div class="form-group">
+	  <label class="col-sm-3 control-label">Multiplicand Start</label>
+	  <div class="col-sm-4">
+	    <input class="form-control" id="candStart">
+	  </div>
+	  <label class="col-sm-5 control-label label-error" id="candStartError"></label>
+	</div>
+
+	<div class="form-group">
+	  <label class="col-sm-3 control-label">Multiplicand End</label>
+	  <div class="col-sm-4">
+	    <input class="form-control" id="candEnd">
+	  </div>
+	  <label class="col-sm-5 control-label label-error" id="candEndError"></label>
+	</div>
+
+	<div class="form-group">
+	  <div class="col-sm-4">
+	    <button type="button" class="btn btn-default" onClick="submitForm()">Build Table</button>
+	  </div>
+	</div>
+      </form>
+
+      <table class="table table-bordered" id="multiplicationTable"></table>
+    </div>
+
+    <script src="WEB_INF/scripts/a6.js"></script>
+  </body>
+</html>
