@@ -70,14 +70,14 @@ function displayTable(pS, pE, cS, cE) {
 
 	// On first iteration, don't place multiplicand in left column/
 	if (c == cS - 1)
-	    tableString += "<td></td>";
+	    tableString += "<th></th>";
 	else
-	    tableString += "<td>" + c + "</td>";
+	    tableString += "<th scope='row'>" + c + "</th>";
 
 	for (var p = pS; p <= pE; p++) {
 	    // On first iteration, fill in the header row
 	    if (c == cS - 1) {
-		tableString += "<td>" + p + "</td>";
+		tableString += "<th>" + p + "</th>";
 	    } else {
 		tableString += "<td>" + c * p + "</td>";
 	    }

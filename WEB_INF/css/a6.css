@@ -1,3 +1,16 @@
 .control-label.label-error {
     text-align: left;
 }
+
+th {
+    background-color: gray;
+    text-align: center;
+    width: 0%;
+}
+
+td {
+    text-align: center;
+}
+
+
+
