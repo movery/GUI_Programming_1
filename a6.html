@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<!--
+  Name: Michael Overy
+  Email: michael_overy@student.uml.edu
+  Affiliation: Senior Undergraduate
+  Creation Date: 27 October 2016
+  Description: Create a dynamic and interactive multiplication table. You should
+               format the page to look nicely using CSS and then generate and validate the table
+               using Javascript.
+-->
 <html lang="en-US">
   <head>
     <meta charset="UTF-8">
@@ -6,57 +16,48 @@
 
     <title>Michael Overy</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <script src="jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="WEB_INF/css/a6.css">
   </head>
   <body>
     <div class="container">
       <h1>Create a Multiplication Table!</h1>
       
-      <form class="form-horizontal" id="tableForm">
-
-	<div class="form-group">
-	  <label class="col-sm-3 control-label">Multiplier Start</label>
-	  <div class="col-sm-4">
-	    <input class="form-control" id="plierStart">
-	  </div>
-	  <label class="col-sm-5 control-label label-error" id="plierStartError"></label>
+      <!-- The form used to obtain user input -->
+      <form id="tableForm">
+	<div class="formRow">
+	  <label class="inputDescription">Multiplier Start</label>
+	  <input id="plierStart">
+	  <label class="inputError" id="plierStartError"></label>
 	</div>
 	
-	<div class="form-group">
-	  <label class="col-sm-3 control-label">Multiplier End</label>
-	  <div class="col-sm-4">
-	    <input class="form-control" id="plierEnd">
-	  </div>
-	  <label class="col-sm-5 control-label label-error" id="plierEndError"></label>
+	<div class="formRow">
+	  <label class="inputDescription">Multiplier End</label>
+	  <input id="plierEnd">
+	  <label class="inputError" id="plierEndError"></label>
 	</div>
 
-	<div class="form-group">
-	  <label class="col-sm-3 control-label">Multiplicand Start</label>
-	  <div class="col-sm-4">
-	    <input class="form-control" id="candStart">
-	  </div>
-	  <label class="col-sm-5 control-label label-error" id="candStartError"></label>
+	<div class="formRow">
+	  <label class="inputDescription">Multiplicand Start</label>
+	  <input id="candStart">
+	  <label class="inputError" id="candStartError"></label>
 	</div>
 
-	<div class="form-group">
-	  <label class="col-sm-3 control-label">Multiplicand End</label>
-	  <div class="col-sm-4">
-	    <input class="form-control" id="candEnd">
-	  </div>
-	  <label class="col-sm-5 control-label label-error" id="candEndError"></label>
+	<div class="formRow">
+	  <label class="inputDescription">Multiplicand End</label>
+	  <input id="candEnd">
+	  <label class="inputError" id="candEndError"></label>
 	</div>
 
-	<div class="form-group">
-	  <div class="col-sm-4">
-	    <button type="button" class="btn btn-default" onClick="submitForm()">Build Table</button>
-	  </div>
+	<div>
+	  <br/>
+	  <button type="button" onClick="submitForm()">Build Table</button>
+	  <br/><br/>
 	</div>
       </form>
 
-      <div class="table-responsive">
-	<table class="table table-bordered table-hover" id="multiplicationTable"></table>
+      <!-- The multiplication table. Javascript edits the innerHTML here to dynamically create the table -->
+      <div class="scrollable">
+	<table id="multiplicationTable"></table>
       </div>
     </div>
 

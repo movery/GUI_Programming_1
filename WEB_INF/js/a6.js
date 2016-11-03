@@ -1,3 +1,13 @@
+/*
+  Name: Michael Overy
+  Email: michael_overy@student.uml.edu
+  Affiliation: Senior Undergraduate
+  Creation Date: 27 October 2016
+  Description: Create a dynamic and interactive multiplication table. You should
+               format the page to look nicely using CSS and then generate and validate the table
+               using Javascript.
+*/
+
 // Form Processing referenced from http://www.w3schools.com/js/tryit.asp?filename=tryjs_form_elements
 function submitForm() {
     var pS = document.getElementById("plierStart").value;
@@ -58,10 +68,18 @@ function validateForm(pS, pE, cS, cE) {
 	candError = true;
     }
 
+    // Large Range validation along with user confirmation box
+    plierRange = Number(pE) - Number(pS);
+    candRange  = Number(cE) - Number(cS);
+    if (plierRange * candRange >= 10000 
+	&& !confirm("You are about to create " + ((plierRange * candRange) + plierRange + candRange) + " cells. This may result in long loading times or page failure. Would you like to proceed?"))
+	return false;
+
     // Return false if error is found, true otherwise.
     return !(plierError | candError);
 }
 
+// Simple creates the table by iterating through the range and generating HTML and assigning it to the table
 function displayTable(pS, pE, cS, cE) {
     tableString = ""
 
