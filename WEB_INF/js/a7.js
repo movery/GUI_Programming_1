@@ -2,10 +2,8 @@
   Name: Michael Overy
   Email: michael_overy@student.uml.edu
   Affiliation: Senior Undergraduate
-  Creation Date: 27 October 2016
-  Description: Create a dynamic and interactive multiplication table. You should
-               format the page to look nicely using CSS and then generate and validate the table
-               using Javascript.
+  Creation Date: 14 November 2016
+  Description: Edit the dynamic multiplication table code from A6 to instead use the jQuery validation tool. It should behave the same way as the previous assignment, except the error messages pop up and disappear based on user input, not when the submit button is pressed.
 */
 
 // Simple creates the table by iterating through the range and generating HTML and assigning it to the table
@@ -46,6 +44,7 @@ function displayTable() {
 $(document).ready(function() {
 
     // Custom Methods to provide same functionality as in a6.
+    // Poorly named. Returns True if not a float, False if is a float.
     $.validator.addMethod("isFloat", function (value, element) {
 	n = parseFloat(value)
 	return n % 1 == 0;
@@ -56,6 +55,7 @@ $(document).ready(function() {
 	var $otherElement = $(param);
 	return (parseInt(value, 10) >= parseInt($otherElement.val(), 10) || $otherElement.val() == "");
     });
+
 
     $.validator.addMethod("lessThan", function (value, element, param) {
 	var $otherElement = $(param);
@@ -92,6 +92,7 @@ $(document).ready(function() {
 	    }
 	},
 	
+	// Error messages
 	messages: {
 	    plierStart: {
 		number: " ERROR: You must enter a valid integer number",
@@ -119,6 +120,7 @@ $(document).ready(function() {
 	    }
 	},
 
+	// Change submit handler to display table. Get values from this function.
 	submitHandler: function() {
 	    displayTable();
 	    return false;
