@@ -56,10 +56,13 @@ $(document).ready(function() {
 	return (parseInt(value, 10) >= parseInt($otherElement.val(), 10) || $otherElement.val() == "");
     });
 
-
     $.validator.addMethod("lessThan", function (value, element, param) {
 	var $otherElement = $(param);
 	return (parseInt(value, 10) <= parseInt($otherElement.val(), 10) || $otherElement.val() == "")
+    });
+
+    $.validator.addMethod("checkRange", function(value, element) {
+	return Math.abs(parseInt(value, 10)) <= 100;
     });
 
     // Referenced: https://jqueryvalidation.org/validate/
@@ -70,25 +73,29 @@ $(document).ready(function() {
 		number: true,
 		required: true,
 		lessThan: "#plierEnd",
-		isFloat: true
+		isFloat: true,
+		checkRange: true
 	    },
 	    plierEnd: {
 		number: true,
 		required: true,
 		greaterThan: "#plierStart",
-		isFloat: true
+		isFloat: true,
+		checkRange: true
 	    },
 	    candStart: {
 		number: true,
 		required: true,
 		lessThan: "#candEnd",
-		isFloat: true
+		isFloat: true,
+		checkRange: true
 	    },
 	    candEnd: {
 		number: true,
 		required: true,
 		greaterThan: "#candStart",
-		isFloat: true
+		isFloat: true,
+		checkRange: true
 	    }
 	},
 	
@@ -98,25 +105,29 @@ $(document).ready(function() {
 		number: " ERROR: You must enter a valid integer number",
 		required: " ERROR: This field is required",
 		lessThan: " ERROR: Start cannot be greater than End",
-		isFloat: " ERROR: Floats are not accepted"
+		isFloat: " ERROR: Floats are not accepted",
+		checkRange: " ERROR: Value falls outside the required range (-100 to 100)"
 	    },
 	    plierEnd: {
 		number: " ERROR: You must enter a valid integer number",
 		required: " ERROR: This field is required",
 		greaterThan: " ERROR: End cannot be less than Start",
-		isFloat: " ERROR: Floats are not accepted"
+		isFloat: " ERROR: Floats are not accepted",
+		checkRange: " ERROR: Value falls outside the required range (-100 to 100)"
 	    },
 	    candStart: {
 		number: " ERROR: You must enter a valid integer number",
 		required: " ERROR: This field is required",
 		lessThan: " ERROR: Start cannot be greater than End",
-		isFloat: " ERROR: Floats are not accepted"
+		isFloat: " ERROR: Floats are not accepted",
+		checkRange: " ERROR: Value falls outside the required range (-100 to 100)"
 	    },
 	    candEnd: {
 		number: " ERROR: You must enter a valid integer number",
 		required: " ERROR: This field is required",
 		greaterThan: " ERROR: End cannot be less than Start",
-		isFloat: " ERROR: Floats are not accepted"
+		isFloat: " ERROR: Floats are not accepted",
+		checkRange: " ERROR: Value falls outside the required range (-100 to 100)"
 	    }
 	},
 
