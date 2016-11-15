@@ -1,0 +1,98 @@
+/*
+  Name: Michael Overy
+  Email: michael_overy@student.uml.edu
+  Affiliation: Senior Undergraduate
+  Creation Date: 27 October 2016
+  Description: Create a dynamic and interactive multiplication table. You should
+               format the page to look nicely using CSS and then generate and validate the table
+               using Javascript.
+*/
+
+
+/* NOTES FOR FUTURE *.
+/*    Would like TH to be static instead of scrolling off of the table */
+/*    Would like input form to collapse on page resize instead of scrolling off screen or word wrapping */
+/*    Overall make it look more appealing */
+
+
+/* Container for the entire body */
+.container {
+    width: 85%;
+    margin: auto;
+}
+
+/* Prevent word wrapping on page resize. */
+/* NOTE: This is not ideal. I would like the error label to drop below the input text
+         Find out how to accompish this for later */
+.formRow {
+    white-space: nowrap;
+    overflow: hidden;
+    margin: auto;
+}
+
+/* Format the labels on either side of the input text area */
+.inputDescription {
+    display: inline-block;
+    width: 125px;
+}
+
+.inputError {
+    padding-left: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Allow table to scroll if exceeds page width */
+.scrollable {
+    overflow: auto;
+}
+
+/* Take up entire parent div width */
+#multiplicationTable {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+/* Recolor top and left column & row, set min width for rows of table */
+#multiplicationTable th {
+    background-color: gray;
+    min-width: 30px;
+
+    text-align: center;
+    border: 1px solid;
+    position: relative;
+    padding: 5px;
+}
+
+#multiplicationTable td {
+    text-align: center;
+    border: 1px solid;
+    position: relative;
+    padding: 5px;
+}
+
+#multiplicationTable tr:hover {
+    background-color: #00FFFF;
+}
+
+/* Ripped from: http://codepen.io/chriscoyier/pen/pvwmaR */
+td:hover::after,
+thead th:not(:empty):hover::after,
+td:focus::after,
+thead th:not(:empty):focus::after { 
+  content: '';  
+  height: 10000px;
+  left: 0;
+  position: absolute;  
+  top: -5000px;
+  width: 100%;
+  z-index: -1;
+}
+
+td:hover::after,
+th:hover::after {
+  background-color: #00FFFF;
+}

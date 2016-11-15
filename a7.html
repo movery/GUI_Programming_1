@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+  Name: Michael Overy
+  Email: michael_overy@student.uml.edu
+  Affiliation: Senior Undergraduate
+  Creation Date: 27 October 2016
+  Description: Create a dynamic and interactive multiplication table. You should
+               format the page to look nicely using CSS and then generate and validate the table
+               using Javascript.
+-->
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Michael Overy</title>
+
+    <!-- jQuery cdn -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- jQuery Validation Plugin -->
+    <script src="WEB_INF/jQuery/jquery.validate.min.js"></script>
+    <script src="WEB_INF/jQuery/additional-methods.min.js"></script>
+
+    <link rel="stylesheet" href="WEB_INF/css/a7.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create a Multiplication Table!</h1>
+      
+      <!-- The form used to obtain user input -->
+      <form id="tableForm">
+	<div class="formRow">
+	  <label class="inputDescription">Multiplier Start</label>
+	  <input id="plierStart" name="plierStart">
+	  <label class="inputError" id="plierStartError"></label>
+	</div>
+	
+	<div class="formRow">
+	  <label class="inputDescription">Multiplier End</label>
+	  <input id="plierEnd" name="plierEnd">
+	  <label class="inputError" id="plierEndError"></label>
+	</div>
+
+	<div class="formRow">
+	  <label class="inputDescription">Multiplicand Start</label>
+	  <input id="candStart" name="candStart">
+	  <label class="inputError" id="candStartError"></label>
+	</div>
+
+	<div class="formRow">
+	  <label class="inputDescription">Multiplicand End</label>
+	  <input id="candEnd" name="candEnd">
+	  <label class="inputError" id="candEndError"></label>
+	</div>
+
+	<div>
+	  <br/>
+	  <input type="submit" value="Build Table">
+	  <br/><br/>
+	</div>
+      </form>
+
+      <!-- The multiplication table. Javascript edits the innerHTML here to dynamically create the table -->
+      <div class="scrollable">
+	<table id="multiplicationTable"></table>
+      </div>
+    </div>
+
+    <script src="WEB_INF/js/a7.js"></script>
+  </body>
+</html>
