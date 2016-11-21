@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+  Name: Michael Overy
+  Email: michael_overy@student.uml.edu
+  Affiliation: Senior Undergraduate
+  Creation Date: 21 November 2016
+  Description: Edit the dynamic multiplication table code from A6 to instead use the jQuery validation tool. It should behave the same way as the previous assignment, except the error messages pop up and disappear based on user input, not when the submit button is pressed.
+-->
+
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Michael Overy</title>
+
+    <!-- jQuery UI CSS -->
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet">
+
+    <!-- jQuery cdn -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- jQuery Validation Plugin -->
+    <script src="WEB_INF/jQuery/jquery.validate.min.js"></script>
+    <script src="WEB_INF/jQuery/additional-methods.min.js"></script>
+
+    <!-- jQuery UI JS -->
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    
+    <link rel="stylesheet" href="WEB_INF/css/a8.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create a Multiplication Table!</h1>
+      
+      <!-- The form used to obtain user input -->
+      <form id="tableForm">
+	<div class="formRow">
+	  <label class="inputDescription">Multiplier Start</label>
+	  <input id="plierStart" name="plierStart">
+	  <div id="plierStartSlider"></div>
+	</div>
+
+	<div class="formRow">
+	  <label class="inputDescription">Multiplier End</label>
+	  <input id="plierEnd" name="plierEnd">
+	  <div id="plierEndSlider"></div>
+	</div>
+
+	<div class="formRow">
+	  <label class="inputDescription">Multiplicand Start</label>
+	  <input id="candStart" name="candStart">
+	  <div id="candStartSlider"></div>
+	</div>
+
+	<div class="formRow">
+	  <label class="inputDescription">Multiplicand End</label>
+	  <input id="candEnd" name="candEnd">
+	  <div id="candEndSlider"></div>
+	</div>
+
+      </form>
+
+      <!-- The multiplication table. Javascript edits the innerHTML here to dynamically create the table -->
+      <div class="scrollable">
+	<table id="multiplicationTable"></table>
+      </div>
+    </div>
+
+    <script src="WEB_INF/js/a8.js"></script>
+  </body>
+</html>
