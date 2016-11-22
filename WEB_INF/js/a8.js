@@ -101,7 +101,7 @@ function createTab() {
 function deleteAllTabs() {
     $("#tabList").tabs("destroy");
     document.getElementById('tabList').innerHTML = "<ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all' role='tablist'></ul>";
-
+    
     index = 1;
 }
 
