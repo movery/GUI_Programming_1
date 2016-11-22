@@ -2,8 +2,9 @@
   Name: Michael Overy
   Email: michael_overy@student.uml.edu
   Affiliation: Senior Undergraduate
-  Creation Date: 14 November 2016
-  Description: Edit the dynamic multiplication table code from A6 to instead use the jQuery validation tool. It should behave the same way as the previous assignment, except the error messages pop up and disappear based on user input, not when the submit button is pressed.
+  Creation Date: 21 November 2016
+  Assignment: Adjust A6 and A7 to have sliders and tabs that have two way binding, dynamically make table as 
+              the values change, and store the values in tabs that can be deleted one at a time, or all at once.
 */
 
 // Simple creates the table by iterating through the range and generating HTML and assigning it to the table
@@ -46,6 +47,62 @@ function displayTable() {
 function submitIfValid() {
     if ($('form#tableForm').valid() == true)
 	displayTable();
+}
+
+// Function to create a tab tied to button press
+$("#saveTable").click(function() {
+    createTab();
+});
+
+$("#deleteAll").click(function() {
+    deleteAllTabs();
+});
+
+
+// Index for tabs
+var index = 1;
+
+// Tab Logic referenced from: https://stackoverflow.com/questions/18572586/append-to-dynamically-created-tab
+function createTab() {
+
+    $("#tabList").tabs();
+
+    // Get values to label the tab
+    var pS = Number(document.getElementById("plierStart").value);
+    var pE = Number(document.getElementById("plierEnd").value);
+    var cS = Number(document.getElementById("candStart").value);
+    var cE = Number(document.getElementById("candEnd").value);
+    index++;
+    
+    // Title the tab
+    $("div#tabList ul").append("<li class='tab'><a href='#tab-" + index + "'>" 
+	+ pS + " to " + pE + " by " + cS + " to " + cE + "</a>" +
+        "<span class='ui-icon ui-icon-close' role='presentation'></span>" + "</li>");
+
+    // Add the multiplication table to the tab
+    $("div#tabList").append('<div id="tab-' + index + '">' + $("#containerCeption").html() + '</div>');
+
+    // Refresh and activate the tab
+    $("#tabList").tabs("refresh");
+    $("#tabList").tabs("option", "active", -1);
+
+    // Get the delete button working
+    $( "#tabList" ).delegate( "span.ui-icon-close", "click", function() {
+	var panelID = $( this ).closest( "li" ).remove().attr( "aria-controls" );
+	$( "#" + panelID ).remove();
+
+	// Must refresh when tab is deleted
+	$("#tabList").tabs("refresh");
+    })
+}
+
+// A really hacky way to delete all tabs.
+// Destroy the tablist and reset the innerHTML of tabList -- HTML string copied from browser
+function deleteAllTabs() {
+    $("#tabList").tabs("destroy");
+    document.getElementById('tabList').innerHTML = "<ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all' role='tablist'></ul>";
+
+    index = 1;
 }
 
 $(document).ready(function() {

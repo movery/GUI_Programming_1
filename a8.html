@@ -4,7 +4,8 @@
   Email: michael_overy@student.uml.edu
   Affiliation: Senior Undergraduate
   Creation Date: 21 November 2016
-  Description: Edit the dynamic multiplication table code from A6 to instead use the jQuery validation tool. It should behave the same way as the previous assignment, except the error messages pop up and disappear based on user input, not when the submit button is pressed.
+  Assignment: Adjust A6 and A7 to have sliders and tabs that have two way binding, dynamically make table as 
+              the values change, and store the values in tabs that can be deleted one at a time, or all at once.
 -->
 
 <html lang="en-US">
@@ -41,33 +42,53 @@
 	  <input id="plierStart" name="plierStart">
 	  <div id="plierStartSlider"></div>
 	</div>
-
+	
+	<br/>
+	
 	<div class="formRow">
 	  <label class="inputDescription">Multiplier End</label>
 	  <input id="plierEnd" name="plierEnd">
 	  <div id="plierEndSlider"></div>
 	</div>
-
+	
+	<br/>
+	
 	<div class="formRow">
 	  <label class="inputDescription">Multiplicand Start</label>
 	  <input id="candStart" name="candStart">
 	  <div id="candStartSlider"></div>
 	</div>
-
+	
+	<br/>
+	
 	<div class="formRow">
 	  <label class="inputDescription">Multiplicand End</label>
 	  <input id="candEnd" name="candEnd">
 	  <div id="candEndSlider"></div>
 	</div>
-
       </form>
-
-      <!-- The multiplication table. Javascript edits the innerHTML here to dynamically create the table -->
-      <div class="scrollable">
-	<table id="multiplicationTable"></table>
+      
+      <div>
+	<br/>
+	<input type="button" id="saveTable" value="Save Table">
+	<input type="button" id="deleteAll" value="Delete All Tabs">
+	<br/><br/>
       </div>
-    </div>
+      
+      
+      <!-- The multiplication table. Javascript edits the innerHTML here to dynamically create the table -->
+      <div id="containerCeption">
+	<div id="tableContainer" class="scrollable">
+	  <table id="multiplicationTable"></table>
+	</div>
+      </div>
+      
+      <br/>
 
-    <script src="WEB_INF/js/a8.js"></script>
+      <div id="tabList">
+
+      </div>
+      
+      <script src="WEB_INF/js/a8.js"></script>
   </body>
 </html>
