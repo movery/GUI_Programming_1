@@ -1,0 +1,51 @@
+/* Container for the entire body */
+.container {
+    width: 85%;
+    margin: auto;
+}
+
+td {
+    min-width: 50px;
+    width: 50px;
+
+    min-height: 50px;
+    height: 50px;
+
+    border: solid 1px;
+}
+
+.doubleLetter {
+    background-color: #4292f4; /* Light Blue */
+}
+
+.tripleLetter {
+    background-color: blue;
+}
+
+.doubleWord {
+    background-color: #f45042; /* Pink */
+}
+
+.tripleWord {
+    background-color: red;
+}
+
+.start {
+    background-color: yellow;
+}
+
+.tile {
+    min-width: 45px;
+    width: 45px;
+
+    min-height: 45px;
+    height: 45px;
+
+    padding: 0px;
+}
+
+#scrabbleRack {
+    background-color: brown;
+    width: 500px;
+    height: 100px;
+}
