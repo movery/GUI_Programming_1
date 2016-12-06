@@ -26,8 +26,13 @@ var scrabbleTiles = [
     {"letter" : "Y", "value": 4,  "max" : 2,  "current" : 2  },
     {"letter" : "Z", "value": 10, "max" : 1,  "current" : 1  },
     {"letter" : "_", "value": 0,  "max" : 2,  "current" : 2  },
-
 ];
+
+var gameBoard = [];
+function initializeGameBoard() {
+    for(var i = 0; i < 15; ++i)
+	gameBoard.push(["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
+}
 
 var deckOfTiles = []
 function initializeDeckOfTiles() {
@@ -37,7 +42,9 @@ function initializeDeckOfTiles() {
 	    var tile =  {"letter"   : scrabbleTiles[i].letter, 
 			 "value"    : scrabbleTiles[i].value,
 			 "modifier" : "",
-			 "id"       : scrabbleTiles[i].letter + j};
+			 "id"       : scrabbleTiles[i].letter + j,
+			 "row"      : -1,
+			 "col"      : -1};
 			
 	    deckOfTiles.push(tile);
 	}
@@ -57,9 +64,13 @@ function drawTiles() {
     for (var i = handOfTiles.length; i < 7; ++i) {
 	var tile = deckOfTiles.pop();
 
+	/* Tile Images used here shamelessly taken from Jason Downings github */
 	var img = "<img class='tile' id='" + tile.id + "' src='WEB_INF/img/Scrabble/Scrabble_Tile_" + tile.letter + ".jpg'></img>";
 
 	$("#scrabbleRack").append(img);
+
+	$("#" + tile.id).css({top : 25, left : (25 * i) + 15})
+
 	$("#" + tile.id).draggable({
 	    revert: "invalid",
 	});
@@ -75,24 +86,39 @@ function initializeDropLocations() {
 
 	/* Referenced: http://stackoverflow.com/a/6003729 */
 	drop: function(ev, ui) {
-            $(ui.draggable).detach().css({top: 1,left: 3}).appendTo(this);
+	    var row = $(this).parent().index();
+	    var col = $(this).index();
 
-	    /* Check if tile comes from hand. If so, adjust storage devices */
-	    for(var i = 0; i < handOfTiles.length; ++i) {
-		if (handOfTiles[i].id == ui.draggable.attr("id")) {
-		    tilesInPlay.push(handOfTiles[i]);
-		    handOfTiles.splice(i, 1);
-		}
-	    }
-
-	    /* Adjust the modifier for any and all tiles */
-	    for(var i = 0; i < tilesInPlay.length; ++i) {
-		if (tilesInPlay[i].id == ui.draggable.attr("id")) {
-		    tilesInPlay[i].modifier = $(this).attr("class");
-		}
-	    }
+	    /* Only place if the cell isn't populated yet */
+	    if (gameBoard[row][col] == "") {
+		$(ui.draggable).detach().css({top: 1,left: 3}).appendTo(this);
 		
-	    adjustScore();
+		/* Check if tile comes from hand. If so, adjust storage devices */
+		for(var i = 0; i < handOfTiles.length; ++i) {
+		    if (handOfTiles[i].id == ui.draggable.attr("id")) {
+			tilesInPlay.push(handOfTiles[i]);
+			handOfTiles.splice(i, 1);
+		    }
+		}
+		
+		/* Adjust the modifier for this tiles */
+		for(var i = 0; i < tilesInPlay.length; ++i) {
+		    if (tilesInPlay[i].id == ui.draggable.attr("id")) {
+			tilesInPlay[i].modifier = $(this).attr("class");
+
+			if (tilesInPlay[i].row != -1)
+			    gameBoard[tilesInPlay[i].row][tilesInPlay[i].col] = ""
+
+			tilesInPlay[i].row = row;
+			tilesInPlay[i].col = col;
+			gameBoard[row][col] = tilesInPlay[i];
+		    }
+		}
+		
+		adjustScore();
+	    } else {
+		ui.draggable.draggable('option', 'revert', true);
+	    }
 	}
     });
 
@@ -110,8 +136,7 @@ function initializeDropLocations() {
 		adjustScore();
 	    }
 	}
-    });
-				
+    });				
 }
 
 var totalScore = 0;
@@ -148,23 +173,56 @@ function adjustScore() {
     for (var i = 0; i < tripleWordCount; ++i)
 	score *= 3;
     
+    $("#scrabbleScore").text("Total Score: " + (totalScore + score));
+
     return score;
 }
 
+tilesPlayed = []
 function submitTiles() {
     totalScore = adjustScore();
 
     for (var i = 0; i < tilesInPlay.length; ++i) {
 	$("#" + tilesInPlay[i].id).draggable("destroy");
-	console.log("wew");
+	tilesPlayed.push(tilesInPlay[i]);
     }
     tilesInPlay = []
 
+    for (var i = 0; i < gameBoard.length; ++i)
+	console.log(gameBoard[i]);
+
+    drawTiles();
+}
+
+function resetGame() {
+    for (var i = 0; i < tilesPlayed.length; ++i) { 
+	$("#" + tilesPlayed[i].id).remove();
+    }
+
+    for (var i = 0; i < tilesInPlay.length; ++i) { 
+	$("#" + tilesInPlay[i].id).remove();
+    }
+
+    for (var i = 0; i < handOfTiles.length; ++i) { 
+	$("#" + handOfTiles[i].id).remove();
+    }
+
+    tilesPlayed = [];
+    deckOfTiles = [];
+    handOfTiles = [];
+    gameBoard   = [];
+    totalScore  = 0;
+
+    $("#scrabbleScore").text("Total Score: 0");
+
+    initializeDeckOfTiles();
+    initializeGameBoard();
     drawTiles();
 }
 
 $(document).ready(function() {
     initializeDeckOfTiles();
     initializeDropLocations();
+    initializeGameBoard();
     drawTiles();
 });
