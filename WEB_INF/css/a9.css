@@ -1,3 +1,11 @@
+/*
+  Name: Michael Overy
+  Email: michael_overy@student.uml.edu
+  Affiliation: Senior Undergraduate
+  Creation Date: 5 December 2016
+  Assignment: Create a scrabble board using drag and drop. Be able to identify where the tiles are placed and then adjust the score as necessary. Take into account bonus squares. Tiles drawn should be randomized and your hand should refill as you submit words. 
+*/
+
 /* Container for the entire body */
 .container {
     width: 85%;

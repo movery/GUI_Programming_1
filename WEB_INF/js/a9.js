@@ -1,3 +1,12 @@
+/*
+  Name: Michael Overy
+  Email: michael_overy@student.uml.edu
+  Affiliation: Senior Undergraduate
+  Creation Date: 5 December 2016
+  Assignment: Create a scrabble board using drag and drop. Be able to identify where the tiles are placed and then adjust the score as necessary. Take into account bonus squares. Tiles drawn should be randomized and your hand should refill as you submit words. 
+*/
+
+/* Data structure taken from Jesse Heines example */
 var scrabbleTiles = [
     {"letter" : "A", "value": 1,  "max" : 9,  "current" : 9  },
     {"letter" : "B", "value": 3,  "max" : 2,  "current" : 2  },
@@ -131,6 +140,7 @@ function initializeDropLocations() {
     });				
 }
 
+/* Calculate score based on tiles on the board and their modifiers */
 var totalScore = 0;
 function adjustScore() {
     var score = 0;
@@ -170,6 +180,7 @@ function adjustScore() {
     return score;
 }
 
+/* Adjust the score, keep track of tiles played that will not be part of the next hand */
 tilesPlayed = []
 function submitTiles() {
     totalScore += adjustScore();
@@ -186,6 +197,7 @@ function submitTiles() {
     drawTiles();
 }
 
+/* Reset all of the default values */
 function resetGame() {
     for (var i = 0; i < tilesPlayed.length; ++i) { 
 	$("#" + tilesPlayed[i].id).remove();
