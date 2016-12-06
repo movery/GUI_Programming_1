@@ -54,64 +54,80 @@ function initializeDeckOfTiles() {
 
 var handOfTiles = []
 function drawTiles() {
-    for (var i = handOfTiles.length; i < 7; ++i) {
-	var tile = deckOfTiles.pop();
+    for (var i = 0; i < 7; ++i) {
 
-	/* Tile Images used here shamelessly taken from Jason Downings github */
-	var img = "<img class='tile' id='" + tile.id + "' src='WEB_INF/img/Scrabble/Scrabble_Tile_" + tile.letter + ".jpg'></img>";
-
-	$("#scrabbleRack").append(img);
-
-	$("#" + tile.id).draggable({
-	    revert: "invalid",
-	});
-	
-	handOfTiles.push(tile);
+	/* Only draw cards into your hand where there is an empty slot */
+	if(($("#scrabbleRack td:nth-child("+ (i+1) + ")").html() == "")) {
+	    var tile = deckOfTiles.pop();
+	    
+	    /* Tile Images used here shamelessly taken from Jason Downings github */
+	    var img = "<img class='tile' id='" + tile.id + "' src='WEB_INF/img/Scrabble/Scrabble_Tile_" + tile.letter + ".jpg'></img>";
+	    
+	    $("#scrabbleRack td:nth-child("+ (i+1) + ")").append(img);
+	    
+	    $("#" + tile.id).css({top: 1, left: 3});
+	    
+	    $("#" + tile.id).draggable({
+		revert: "invalid",
+	    });
+	    
+	    handOfTiles.push(tile);
+	}
     }
 }
 
 var tilesInPlay = []
 function initializeDropLocations() {
-    $("td").droppable({
+
+    $("#scrabbleBoard td").droppable({
 	accept: ".tile",
 
 	/* Referenced: http://stackoverflow.com/a/6003729 */
 	drop: function(ev, ui) {
-	    /* Only place if the cell isn't populated yet */
-	    $(ui.draggable).detach().css({top: 1,left: 3}).appendTo(this);
-	    
-	    /* Check if tile comes from hand. If so, adjust storage devices */
-	    for(var i = 0; i < handOfTiles.length; ++i) {
-		if (handOfTiles[i].id == ui.draggable.attr("id")) {
-		    tilesInPlay.push(handOfTiles[i]);
-		    handOfTiles.splice(i, 1);
+
+	    if ($(this).html() == "") {
+		$(ui.draggable).detach().css({top: 1,left: 3}).appendTo(this);
+		
+		/* Check if tile comes from hand. If so, adjust storage devices */
+		for(var i = 0; i < handOfTiles.length; ++i) {
+		    if (handOfTiles[i].id == ui.draggable.attr("id")) {
+			tilesInPlay.push(handOfTiles[i]);
+			handOfTiles.splice(i, 1);
+		    }
 		}
+		
+		/* Adjust the modifier for this tiles */
+		for(var i = 0; i < tilesInPlay.length; ++i) 
+		    if (tilesInPlay[i].id == ui.draggable.attr("id")) 
+			tilesInPlay[i].modifier = $(this).attr("class");
+		
+		adjustScore();
+	    } else {
+		ui.draggable.draggable("option", "revert", true);
 	    }
-	    
-	    /* Adjust the modifier for this tiles */
-	    for(var i = 0; i < tilesInPlay.length; ++i) 
-		if (tilesInPlay[i].id == ui.draggable.attr("id")) 
-		    tilesInPlay[i].modifier = $(this).attr("class");
-	    
-	    adjustScore();
 	}
     });
     
-    $("#scrabbleRack").droppable({
+    $("#scrabbleRack td").droppable({
 	accept: ".tile",
 	
 	drop: function(ev, ui) {
-
-	    /* Check if tile comes in play. If so, adjust storage devices */
-	    for(var i = 0; i < tilesInPlay.length; ++i) {
-		if (tilesInPlay[i].id == ui.draggable.attr("id")) {
-		    handOfTiles.push(tilesInPlay[i]);
-		    tilesInPlay.splice(i, 1);
+	    /* Can only put in a cell if it is empty */
+	    if ($(this).html() == "") {
+		$(ui.draggable).detach().css({top: 1,left: 3}).appendTo(this);
+		
+		/* Check if tile comes in play. If so, adjust storage devices */
+		for(var i = 0; i < tilesInPlay.length; ++i) {
+		    if (tilesInPlay[i].id == ui.draggable.attr("id")) {
+			handOfTiles.push(tilesInPlay[i]);
+			tilesInPlay.splice(i, 1);
+		    }
 		}
+		adjustScore();
+	    } else {
+		ui.draggable.draggable("option", "revert", true);
 	    }
-	    
-	    adjustScore();
-	}	
+	}
     });				
 }
 
