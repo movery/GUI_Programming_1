@@ -30,10 +30,35 @@
     <div class="container">
       <h1>Lets play some scrabble!</h1>
 
-      <p id="scrabbleScore">Total Score: 0</p>
+      <!-- Referenced: http://svnaptic.github.io/a9 -->
+      <table id="scrabbleKey">
+	<tr>
+	  <td></td>
+	  <td class="start"></td>
+	  <td class="doubleLetter"></td>
+	  <td class="tripleLetter"></td>
+	  <td class="doubleWord"></td>
+	  <td class="tripleWord"></td>
+	</tr>
+	<tr>
+	  <td>Normal Score</td>
+	  <td>Start</td>
+	  <td>Double Letter</td>
+	  <td>Triple Letter</td>
+	  <td>Double Word</td>
+	  <td>Triple Word</td>
+	</tr>
+      </table>
 
-      <button onclick="submitTiles()">Submit Word</button>
-      <button onclick="resetGame()">Reset the game</button>
+      <table id="scoreBoard">
+	<td id="totalScore">Total Score: 0</td>
+	<td id="currentWordScore">Current Word: 0</td>
+      </table>
+
+      <div id="buttonRow">
+	<button onclick="submitTiles()">Submit Word</button>
+	<button onclick="resetGame()">Reset the game</button>
+      </div>
 
       <table id="scrabbleBoard">
 	

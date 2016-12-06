@@ -4,12 +4,33 @@
     margin: auto;
 }
 
-#scrabbleBoard td {
-    min-width: 50px;
-    width: 50px;
+h1 {
+    text-align: center;
+}
 
-    min-height: 50px;
-    height: 50px;
+#scoreBoard {
+    padding: 25px;
+    margin: auto;
+}
+
+#scoreBoard td {
+    width: 140px;
+}
+
+#buttonRow {
+    text-align: center;
+}
+
+#scrabbleBoard {
+    margin: auto;
+}
+
+#scrabbleBoard td {
+    min-width: 40px;
+    width: 40px;
+
+    min-height: 40px;
+    height: 40px;
 
     border: solid 1px;
 }
@@ -35,22 +56,39 @@
 }
 
 .tile {
-    min-width: 45px;
-    width: 45px;
+    min-width: 35px;
+    width: 35px;
 
-    min-height: 45px;
-    height: 45px;
+    min-height: 35px;
+    height: 35px;
 
     padding: 0px;
+}
+
+#scrabbleRack {
+    margin: auto;
 }
 
 #scrabbleRack td {
     background-color: brown;
     border: solid 1px;
 
-    min-height: 50px;
-    height: 50px;
+    min-height: 35px;
+    height: 35px;
 
-    min-width: 50px;
-    width: 50px;
+    min-width: 35px;
+    width: 35px;
 }
+
+#scrabbleKey {
+    margin: auto;
+}
+
+#scrabbleKey td {
+    height: 30px;
+    width: 50px;
+    text-align: center;
+    border: solid 1px;
+}
+
+

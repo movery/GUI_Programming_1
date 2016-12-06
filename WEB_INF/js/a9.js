@@ -65,7 +65,7 @@ function drawTiles() {
 	    
 	    $("#scrabbleRack td:nth-child("+ (i+1) + ")").append(img);
 	    
-	    $("#" + tile.id).css({top: 1, left: 3});
+	    $("#" + tile.id).css({top: 2, left: 0});
 	    
 	    $("#" + tile.id).draggable({
 		revert: "invalid",
@@ -86,7 +86,7 @@ function initializeDropLocations() {
 	drop: function(ev, ui) {
 
 	    if ($(this).html() == "") {
-		$(ui.draggable).detach().css({top: 1,left: 3}).appendTo(this);
+		$(ui.draggable).detach().css({top: 2,left: 2}).appendTo(this);
 		
 		/* Check if tile comes from hand. If so, adjust storage devices */
 		for(var i = 0; i < handOfTiles.length; ++i) {
@@ -114,7 +114,7 @@ function initializeDropLocations() {
 	drop: function(ev, ui) {
 	    /* Can only put in a cell if it is empty */
 	    if ($(this).html() == "") {
-		$(ui.draggable).detach().css({top: 1,left: 3}).appendTo(this);
+		$(ui.draggable).detach().css({top: 2,left: 0}).appendTo(this);
 		
 		/* Check if tile comes in play. If so, adjust storage devices */
 		for(var i = 0; i < tilesInPlay.length; ++i) {
@@ -165,14 +165,17 @@ function adjustScore() {
     for (var i = 0; i < tripleWordCount; ++i)
 	score *= 3;
     
-    $("#scrabbleScore").text("Total Score: " + (totalScore + score));
+    $("#currentWordScore").text("Current Word: " + score);
 
-    return totalScore + score;
+    return score;
 }
 
 tilesPlayed = []
 function submitTiles() {
-    totalScore = adjustScore();
+    totalScore += adjustScore();
+
+    $("#totalScore").text("Total Score: " + totalScore);
+    $("#currentWordScore").text("Current Word: 0");
 
     for (var i = 0; i < tilesInPlay.length; ++i) {
 	$("#" + tilesInPlay[i].id).draggable("destroy");
@@ -200,7 +203,8 @@ function resetGame() {
     handOfTiles = [];
     totalScore  = 0;
 
-    $("#scrabbleScore").text("Total Score: 0");
+    $("#totalScore").text("Total Score: 0");
+    $("#currentWordScore").text("Current Word: 0");
 
     initializeDeckOfTiles();
     drawTiles();
