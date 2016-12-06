@@ -28,24 +28,17 @@ var scrabbleTiles = [
     {"letter" : "_", "value": 0,  "max" : 2,  "current" : 2  },
 ];
 
-var gameBoard = [];
-function initializeGameBoard() {
-    for(var i = 0; i < 15; ++i)
-	gameBoard.push(["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
-}
-
 var deckOfTiles = []
 function initializeDeckOfTiles() {
+    deckOfTiles = [];
+
     /* Push all tiles into an array to "Draw" from */
     for (var i = 0; i < scrabbleTiles.length; ++i) {
 	for (var j = 0; j < scrabbleTiles[i].max; ++j) {
 	    var tile =  {"letter"   : scrabbleTiles[i].letter, 
 			 "value"    : scrabbleTiles[i].value,
 			 "modifier" : "",
-			 "id"       : scrabbleTiles[i].letter + j,
-			 "row"      : -1,
-			 "col"      : -1};
-			
+			 "id"       : scrabbleTiles[i].letter + j};			
 	    deckOfTiles.push(tile);
 	}
     }
@@ -69,8 +62,6 @@ function drawTiles() {
 
 	$("#scrabbleRack").append(img);
 
-	$("#" + tile.id).css({top : 25, left : (25 * i) + 15})
-
 	$("#" + tile.id).draggable({
 	    revert: "invalid",
 	});
@@ -86,56 +77,41 @@ function initializeDropLocations() {
 
 	/* Referenced: http://stackoverflow.com/a/6003729 */
 	drop: function(ev, ui) {
-	    var row = $(this).parent().index();
-	    var col = $(this).index();
-
 	    /* Only place if the cell isn't populated yet */
-	    if (gameBoard[row][col] == "") {
-		$(ui.draggable).detach().css({top: 1,left: 3}).appendTo(this);
-		
-		/* Check if tile comes from hand. If so, adjust storage devices */
-		for(var i = 0; i < handOfTiles.length; ++i) {
-		    if (handOfTiles[i].id == ui.draggable.attr("id")) {
-			tilesInPlay.push(handOfTiles[i]);
-			handOfTiles.splice(i, 1);
-		    }
+	    $(ui.draggable).detach().css({top: 1,left: 3}).appendTo(this);
+	    
+	    /* Check if tile comes from hand. If so, adjust storage devices */
+	    for(var i = 0; i < handOfTiles.length; ++i) {
+		if (handOfTiles[i].id == ui.draggable.attr("id")) {
+		    tilesInPlay.push(handOfTiles[i]);
+		    handOfTiles.splice(i, 1);
 		}
-		
-		/* Adjust the modifier for this tiles */
-		for(var i = 0; i < tilesInPlay.length; ++i) {
-		    if (tilesInPlay[i].id == ui.draggable.attr("id")) {
-			tilesInPlay[i].modifier = $(this).attr("class");
-
-			if (tilesInPlay[i].row != -1)
-			    gameBoard[tilesInPlay[i].row][tilesInPlay[i].col] = ""
-
-			tilesInPlay[i].row = row;
-			tilesInPlay[i].col = col;
-			gameBoard[row][col] = tilesInPlay[i];
-		    }
-		}
-		
-		adjustScore();
-	    } else {
-		ui.draggable.draggable('option', 'revert', true);
 	    }
+	    
+	    /* Adjust the modifier for this tiles */
+	    for(var i = 0; i < tilesInPlay.length; ++i) 
+		if (tilesInPlay[i].id == ui.draggable.attr("id")) 
+		    tilesInPlay[i].modifier = $(this).attr("class");
+	    
+	    adjustScore();
 	}
     });
-
+    
     $("#scrabbleRack").droppable({
 	accept: ".tile",
-
+	
 	drop: function(ev, ui) {
+
 	    /* Check if tile comes in play. If so, adjust storage devices */
 	    for(var i = 0; i < tilesInPlay.length; ++i) {
 		if (tilesInPlay[i].id == ui.draggable.attr("id")) {
 		    handOfTiles.push(tilesInPlay[i]);
 		    tilesInPlay.splice(i, 1);
 		}
-
-		adjustScore();
 	    }
-	}
+	    
+	    adjustScore();
+	}	
     });				
 }
 
@@ -175,7 +151,7 @@ function adjustScore() {
     
     $("#scrabbleScore").text("Total Score: " + (totalScore + score));
 
-    return score;
+    return totalScore + score;
 }
 
 tilesPlayed = []
@@ -187,9 +163,6 @@ function submitTiles() {
 	tilesPlayed.push(tilesInPlay[i]);
     }
     tilesInPlay = []
-
-    for (var i = 0; i < gameBoard.length; ++i)
-	console.log(gameBoard[i]);
 
     drawTiles();
 }
@@ -208,21 +181,17 @@ function resetGame() {
     }
 
     tilesPlayed = [];
-    deckOfTiles = [];
     handOfTiles = [];
-    gameBoard   = [];
     totalScore  = 0;
 
     $("#scrabbleScore").text("Total Score: 0");
 
     initializeDeckOfTiles();
-    initializeGameBoard();
     drawTiles();
 }
 
 $(document).ready(function() {
     initializeDeckOfTiles();
     initializeDropLocations();
-    initializeGameBoard();
     drawTiles();
 });
