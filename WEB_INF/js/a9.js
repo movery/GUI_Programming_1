@@ -125,10 +125,53 @@ function initializeDropLocations() {
 		    if (tilesInPlay[i].id == ui.draggable.attr("id")) 
 			tilesInPlay[i].modifier = $(this).attr("class");
 		
-		adjustScore();
+	    } else if ($(':nth-child(1)', this).attr("class") 
+		       == "tile ui-draggable ui-draggable-handle") {
+		/* SWAP TILE LOGIC */
+
+		/* If tile came from the rack */
+		if ($(ui.draggable).parents().eq(3).attr("id")
+		    == "scrabbleRack") {
+
+		    /* Adjust storage devices */
+		    for(var i = 0; i < handOfTiles.length; ++i) {
+			if (handOfTiles[i].id == ui.draggable.attr("id")) {
+			    tilesInPlay.push(handOfTiles[i]);
+			    handOfTiles.splice(i, 1);
+			}
+		    }
+
+		    for(var i = 0; i < tilesInPlay.length; ++i) {
+			if (tilesInPlay[i].id == $(':nth-child(1)', this).attr("id")) {
+			    handOfTiles.push(tilesInPlay[i]);
+			    tilesInPlay.splice(i, 1);
+			}
+		    }
+		}
+		
+		/* Get handle on tile being swapped (to swap modifiers) */
+		var swapped = $(':nth-child(1)', this);
+
+		/* Swap the tiles */
+		$(':nth-child(1)', this).detach().css({top: 2, left: 2}).appendTo((ui.draggable.parent()));
+		$(ui.draggable).detach().css({top: 2,left: 2}).appendTo(this);
+	    
+		/* Change Modifiers */
+		/* Adjust the modifier for this tiles */
+		for(var i = 0; i < tilesInPlay.length; ++i) 
+		    if (tilesInPlay[i].id == ui.draggable.attr("id")) 
+			tilesInPlay[i].modifier = $(this).attr("class");
+		
+		/* Adjust the modifier for this tiles */
+		for(var i = 0; i < tilesInPlay.length; ++i) 
+		    if (tilesInPlay[i].id == swapped.attr("id")) 
+			tilesInPlay[i].modifier = $(swapped).parent().attr("class");
+
 	    } else {
 		ui.draggable.draggable("option", "revert", true);
 	    }
+
+	    adjustScore();
 	}
     });
     
@@ -147,10 +190,44 @@ function initializeDropLocations() {
 			tilesInPlay.splice(i, 1);
 		    }
 		}
-		adjustScore();
+
+	    } else if ($(':nth-child(1)', this).attr("class") 
+		       == "tile ui-draggable ui-draggable-handle") {		
+		/* SWAP TILE LOGIC */
+
+		/* If tile came from the board */
+		if ($(ui.draggable).parents().eq(3).attr("id")
+		    == "scrabbleBoard") {
+
+		    var modifier;
+		    
+		    for(var i = 0; i < tilesInPlay.length; ++i) {
+			if (tilesInPlay[i].id == ui.draggable.attr("id")) {
+			    modifier = tilesInPlay[i].modifier;
+			    handOfTiles.push(tilesInPlay[i]);
+			    tilesInPlay.splice(i, 1);
+			}
+		    }
+
+		    /* Adjust storage devices */
+		    for(var i = 0; i < handOfTiles.length; ++i) {
+			if (handOfTiles[i].id == $(':nth-child(1)', this).attr("id")) {
+			    handOfTiles[i].modifier = modifier;
+			    tilesInPlay.push(handOfTiles[i]);
+			    handOfTiles.splice(i, 1);
+			}
+		    }
+		}
+		
+		/* Swap the tiles */
+		$(':nth-child(1)', this).detach().css({top: 2, left: 2}).appendTo((ui.draggable.parent()));
+		$(ui.draggable).detach().css({top: 2,left: 2}).appendTo(this);
+	    
 	    } else {
 		ui.draggable.draggable("option", "revert", true);
 	    }
+
+	    adjustScore();
 	}
     });				
 }
