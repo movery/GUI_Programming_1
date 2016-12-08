@@ -82,7 +82,7 @@ function drawTiles() {
 	    
 	    $("#scrabbleRack td:nth-child("+ (i+1) + ")").append(img);
 	    
-	    $("#" + tile.id).css({top: 2, left: 0});
+	    $("#" + tile.id).css({top: 2, left: 2});
 	    
 	    $("#" + tile.id).draggable({
 		revert: "invalid",
@@ -138,7 +138,7 @@ function initializeDropLocations() {
 	drop: function(ev, ui) {
 	    /* Can only put in a cell if it is empty */
 	    if ($(this).html() == "") {
-		$(ui.draggable).detach().css({top: 2,left: 0}).appendTo(this);
+		$(ui.draggable).detach().css({top: 2,left: 2}).appendTo(this);
 		
 		/* Check if tile comes in play. If so, adjust storage devices */
 		for(var i = 0; i < tilesInPlay.length; ++i) {
