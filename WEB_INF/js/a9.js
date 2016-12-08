@@ -68,6 +68,14 @@ function drawTiles() {
 	/* Only draw cards into your hand where there is an empty slot */
 	if(($("#scrabbleRack td:nth-child("+ (i+1) + ")").html() == "")) {
 	    var tile = deckOfTiles.pop();
+
+	    /* Adjust remaining tiles in data structure */
+	    for (var j = 0; j < scrabbleTiles.length; ++j) {
+		if(scrabbleTiles[j].letter == tile.letter) {
+		    scrabbleTiles[j].current -= 1;
+		    $("#" + scrabbleTiles[j].letter).text(scrabbleTiles[j].letter + " - " + scrabbleTiles[j].current);
+		}
+	    }
 	    
 	    /* Tile Images used here shamelessly taken from Jason Downings github */
 	    var img = "<img class='tile' id='" + tile.id + "' src='WEB_INF/img/Scrabble/Scrabble_Tile_" + tile.letter + ".jpg'></img>";
@@ -82,6 +90,13 @@ function drawTiles() {
 	    
 	    handOfTiles.push(tile);
 	}
+    }
+}
+
+function initializeRemainingPieces() {
+    for (var i = 0; i < scrabbleTiles.length; ++i) {
+	scrabbleTiles[i].current = scrabbleTiles[i].max;
+	$("#" + scrabbleTiles[i].letter).text(scrabbleTiles[i].letter + " - " + scrabbleTiles[i].current);
     }
 }
 
@@ -212,6 +227,7 @@ function resetGame() {
     }
 
     tilesPlayed = [];
+    tilesInPlay = []; 
     handOfTiles = [];
     totalScore  = 0;
 
@@ -219,11 +235,13 @@ function resetGame() {
     $("#currentWordScore").text("Current Word: 0");
 
     initializeDeckOfTiles();
+    initializeRemainingPieces();
     drawTiles();
 }
 
 $(document).ready(function() {
     initializeDeckOfTiles();
+    initializeRemainingPieces();
     initializeDropLocations();
     drawTiles();
 });

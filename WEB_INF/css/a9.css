@@ -93,10 +93,26 @@ h1 {
 }
 
 #scrabbleKey td {
+    min-height: 30px;
     height: 30px;
+
+    min-width: 50px;
     width: 50px;
     text-align: center;
     border: solid 1px;
 }
 
+#scrabbleRemainingPieces {
+    text-align: center;
+    margin: auto;
+}
 
+#scrabbleRemainingPieces td {
+    border: solid 1px;
+    
+    min-width: 50px;
+    width: 50px;
+
+    min-height: 30px;
+    height: 25px;
+}
